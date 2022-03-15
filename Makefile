@@ -1,6 +1,9 @@
 NAME = lem_in
 
-LEM_IN_NAME = lem_in.c
+LEM_IN_NAME = lem_in.c \
+				find_line_type.c \
+				stock.c
+
 
 INC_PATH = ./includes/
 LEM_IN_PATH = ./srcs/
