@@ -42,7 +42,7 @@ static int is_room(char *line)
 
 	if (pos)
 		is_name(line, pos);
-	ft_putendl(&line[pos]);
+	ft_putendl(line[pos]);
 	ft_putendl("in room");
 	exit(1);
 	return(0);
