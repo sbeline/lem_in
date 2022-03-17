@@ -36,7 +36,7 @@ typedef struct s_danthill
 typedef struct		s_tab
 {
 	int				i;
-	int				(*f)(char *);
+	void			(*f)(char *, t_danthill **, int *er);
 }					t_tab;
 
 

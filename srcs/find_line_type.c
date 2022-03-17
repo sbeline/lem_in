@@ -1,19 +1,21 @@
 #include "../includes/lem_in.h"
 
-static int is_command(char *line)
+static void is_command(char *line,t_danthill **anthill, int *er)
 {
-	ft_putendl("in command");
-	if (ft_strncmp(line, "##", 2) && !ft_strncmp(line, "#", 0))
-		return (1);
-	return(-1);
+	if (!ft_strncmp(line, "##", 2))
+	{
+		//ft_putendl("is_command");
+		*er = 0;
+	}
 }
 
-static int is_com(char *line)
+static void is_com(char *line,t_danthill **anthill, int *er)
 {
-	ft_putendl("in com");
-	if (!ft_strncmp(line, "##", 2))
-		return (0);
-	return(-1);
+	if (*line == '#' && !*er)
+	{
+		//ft_putendl("is_com");
+		*er = 1;
+	}
 }
 
 
@@ -34,23 +36,52 @@ static int	is_name(char *str, int pos)
 	return (2);
 }
 
-static int is_room(char *line)
+static int	is_coor(char *str)
 {
-	int pos;
-
-	pos = ft_strchr(line, ' ');
-
-	if (pos)
-		is_name(line, pos);
-	ft_putendl(line[pos]);
-	ft_putendl("in room");
-	exit(1);
+	while (*str)
+	{
+		if (ft_isdigit(*str))
+			str++;
+		else if (*str == ' ')
+		{
+			str++;
+			while (*str)
+			{
+				if (ft_isdigit(*str))
+					str++;
+				else
+					return(0);
+			}
+			return(1);
+		}
+		else
+			return(0);
+	}
 	return(0);
 }
 
-static int is_pipe(char *line)
+static void	is_room(char *line,t_danthill **anthill, int *er)
 {
-	return(0);
+	int pos;
+
+	pos = 0;
+	pos = ft_strchr(line, ' ');
+	if (pos)
+	{
+		is_name(line, pos);
+		ft_putendl("is_name");
+		if (is_coor(line + pos))
+		{
+				ft_putendl("is_room");
+				*er = 3;
+		}
+
+	}
+}
+
+static void is_pipe(char *line,t_danthill **anthill, int *er)
+{
+	return ;
 }
 
 static const t_tab		g_tab[LINE_TEST] =
@@ -70,10 +101,15 @@ int	find_line_type(char *line, t_danthill **anthill)
 	er = 0;
 	while (i < LINE_TEST)
 	{
-		er = g_tab[i].f(line);
-		if (er >= 0)
-			*anthill = to_stock(er, line);
+		g_tab[i].f(line, anthill, &er);
 		i++;
 	}
+	ft_putstr("-->typeof line=");
+	ft_putnbr(er);
+	ft_putstr("-->line=");
+	ft_putstr(line);
+	ft_putchar('\n');
+
+
 	return(1);
 }
