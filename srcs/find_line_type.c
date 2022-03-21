@@ -4,8 +4,7 @@ static void is_command(char *line,t_danthill **anthill, int *er)
 {
 	if (!ft_strncmp(line, "##", 2))
 	{
-		//ft_putendl("is_command");
-		*er = 0;
+		*er = 1;
 	}
 }
 
@@ -14,7 +13,7 @@ static void is_com(char *line,t_danthill **anthill, int *er)
 	if (*line == '#' && !*er)
 	{
 		//ft_putendl("is_com");
-		*er = 1;
+		*er = 2;
 	}
 }
 
@@ -69,18 +68,21 @@ static void	is_room(char *line,t_danthill **anthill, int *er)
 	if (pos)
 	{
 		is_name(line, pos);
-		ft_putendl("is_name");
 		if (is_coor(line + pos))
-		{
-				ft_putendl("is_room");
 				*er = 3;
-		}
-
 	}
 }
 
 static void is_pipe(char *line,t_danthill **anthill, int *er)
 {
+	int pos;
+
+	pos = 0;
+	pos = ft_strchr(line, '-');
+	if (pos)
+	{
+		*er = 4;
+	}
 	return ;
 }
 
