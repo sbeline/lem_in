@@ -1,18 +1,21 @@
 #include "../includes/lem_in.h"
 
-static void is_command(char *line,t_danthill **anthill, int *er)
+static void is_command(char *line,t_danthill **anthill, int *er, int *start_end)
 {
 	if (!ft_strncmp(line, "##", 2))
 	{
+		if (ft_strcmp(line + 2,"start"))
+			*start_end = START;
+		if (ft_strcmp(line + 2,"end"))
+			*start_end = END;
 		*er = 1;
 	}
 }
 
-static void is_com(char *line,t_danthill **anthill, int *er)
+static void is_com(char *line,t_danthill **anthill, int *er, int *start_end)
 {
 	if (*line == '#' && !*er)
 	{
-		//ft_putendl("is_com");
 		*er = 2;
 	}
 }
@@ -59,7 +62,7 @@ static int	is_coor(char *str)
 	return(0);
 }
 
-static void	is_room(char *line,t_danthill **anthill, int *er)
+static void	is_room(char *line,t_danthill **anthill, int *er, int *start_end)
 {
 	int pos;
 
@@ -69,11 +72,14 @@ static void	is_room(char *line,t_danthill **anthill, int *er)
 	{
 		is_name(line, pos);
 		if (is_coor(line + pos))
-				*er = 3;
+		{
+			*er = 3;
+			stock_room(line, start_end, pos);
+		}
 	}
 }
 
-static void is_pipe(char *line,t_danthill **anthill, int *er)
+static void is_pipe(char *line,t_danthill **anthill, int *er, int *start_end)
 {
 	int pos;
 
@@ -97,20 +103,24 @@ static const t_tab		g_tab[LINE_TEST] =
 int	find_line_type(char *line, t_danthill **anthill)
 {
 	int i;
+	int start_end;
 	int er;
 
 	i = 0;
 	er = 0;
+	start_end = -1;
 	while (i < LINE_TEST)
 	{
-		g_tab[i].f(line, anthill, &er);
+		g_tab[i].f(line, anthill, &er, &start_end);
 		i++;
 	}
+
+	/* Debug tools lexer
 	ft_putstr("-->typeof line=");
 	ft_putnbr(er);
 	ft_putstr("-->line=");
 	ft_putstr(line);
-	ft_putchar('\n');
+	ft_putchar('\n');*/
 
 
 	return(1);

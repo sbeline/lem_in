@@ -19,7 +19,9 @@
 # define ER_LINE 42
 # define ER_ANT_NOT_GIVEN 84
 
-#define LINE_TEST 4
+# define LINE_TEST 4
+# define START 1
+# define END 2
 
 
 
@@ -36,17 +38,11 @@ typedef struct s_danthill
 typedef struct		s_tab
 {
 	int				i;
-	void			(*f)(char *, t_danthill **, int *er);
+	void			(*f)(char *, t_danthill **, int *er, int *start_end);
 }					t_tab;
 
 
-typedef struct		s_stock
-{
-	int				count;
-	int				(*f)(char *, t_danthill **);
-}					t_stock;
-
 int				find_line_type(char *line, t_danthill **anthill);
-t_danthill		*to_stock(int er, char *line);
 
+t_danthill 		*stock_room(char *line, int *start_end, int pos);
 #endif
