@@ -25,24 +25,32 @@
 
 
 
-typedef struct s_danthill
+typedef struct s_anthill
 {
 	int					ant;
 	char				*name;
 	int					cor[2];
-    struct s_danthill	*ptr[MAX_ANTHILL];
-	struct s_danthill	*next;
-	struct s_danthill	*prev;
+    struct s_anthill	*ptr[MAX_ANTHILL];
+	struct s_anthill	*next;
+	struct s_anthill	*prev;
+}					t_anthill;
+
+typedef struct s_danthill
+{
+	size_t				lenght;
+	struct s_anthill	*head;
+	struct s_anthill	*tail;
 }					t_danthill;
 
 typedef struct		s_tab
 {
 	int				i;
-	void			(*f)(char *, t_danthill **, int *er, int *start_end);
+	t_anthill		*(*f)(char *, int *er, int *start_end);
 }					t_tab;
 
 
 int				find_line_type(char *line, t_danthill **anthill);
 
-t_danthill 		*stock_room(char *line, int *start_end, int pos);
+t_anthill 		*stock_room(char *line, int *start_end, int pos);
+
 #endif

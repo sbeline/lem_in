@@ -28,13 +28,13 @@ static int				ft_natoi(const char *str, size_t cn)
 
 
 
-t_danthill 		*stock_room(char *line, int *start_end, int pos)
+t_anthill 		*stock_room(char *line, int *start_end, int pos)
 {
-	t_danthill *new_node;
+	t_anthill *new_node;
 	int pos_scd;
 
 	pos_scd = 0;
-	new_node = (t_danthill *)ft_memalloc(sizeof(t_danthill));
+	new_node = (t_anthill *)ft_memalloc(sizeof(t_anthill));
 	new_node->name = ft_strndup(line, 0, pos);
 	pos_scd = ft_strchr(line+pos, ' ');
 	new_node->cor[0] = ft_natoi(line+pos, pos);

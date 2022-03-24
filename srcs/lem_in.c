@@ -3,12 +3,7 @@
 
 void parser_lexer(char *buf, t_danthill **anthill)
 {
-	t_danthill 	*start;
-	t_danthill 	*end;
 
-
-	start = NULL;
-	end = NULL;
 
 	find_line_type(buf, anthill);
 

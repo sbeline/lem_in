@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-static void is_command(char *line,t_danthill **anthill, int *er, int *start_end)
+static t_anthill *is_command(char *line, int *er, int *start_end)
 {
 	if (!ft_strncmp(line, "##", 2))
 	{
@@ -10,14 +10,16 @@ static void is_command(char *line,t_danthill **anthill, int *er, int *start_end)
 			*start_end = END;
 		*er = 1;
 	}
+	return NULL;
 }
 
-static void is_com(char *line,t_danthill **anthill, int *er, int *start_end)
+static t_anthill *is_com(char *line, int *er, int *start_end)
 {
 	if (*line == '#' && !*er)
 	{
 		*er = 2;
 	}
+	return NULL;
 }
 
 
@@ -50,11 +52,7 @@ static int	is_coor(char *str)
 			while (*str != '\0')
 			{
 				if (!ft_isdigit(*str))
-				{
-					ft_putnbr(ft_atoi(str));
-					ft_putstr("im in:");
 					return(0);
-				}
 				else
 					str++;
 			}
@@ -66,7 +64,7 @@ static int	is_coor(char *str)
 	return(0);
 }
 
-static void	is_room(char *line,t_danthill **anthill, int *er, int *start_end)
+static t_anthill	*is_room(char *line, int *er, int *start_end)
 {
 	int pos;
 
@@ -78,14 +76,15 @@ static void	is_room(char *line,t_danthill **anthill, int *er, int *start_end)
 		if (is_coor(line + pos))
 		{
 			*er = 3;
-			*anthill = stock_room(line, start_end, pos);
-			ft_putstr("im in");
-			ft_putendl((*anthill)->name);
+			return(stock_room(line, start_end, pos));
+
 		}
 	}
+	return NULL;
+
 }
 
-static void is_pipe(char *line,t_danthill **anthill, int *er, int *start_end)
+static t_anthill *is_pipe(char *line, int *er, int *start_end)
 {
 	int pos;
 
@@ -95,7 +94,7 @@ static void is_pipe(char *line,t_danthill **anthill, int *er, int *start_end)
 	{
 		*er = 4;
 	}
-	return ;
+	return NULL;
 }
 
 static const t_tab		g_tab[LINE_TEST] =
@@ -111,22 +110,36 @@ int	find_line_type(char *line, t_danthill **anthill)
 	int i;
 	int start_end;
 	int er;
+	t_anthill *new_node;
 
+	new_node = NULL;
 	i = 0;
 	er = 0;
 	start_end = -1;
 	while (i < LINE_TEST)
 	{
-		g_tab[i].f(line, anthill, &er, &start_end);
+		new_node = g_tab[i].f(line, &er, &start_end);
+		if (new_node) {
+			printf("cor_x->%d cor_y%d for->%s\n",new_node->cor[0],
+			new_node->cor[1], new_node->name);
+			if ((*anthill))
+			{
+			}
+			else
+			{
+
+			}
+		}
 		i++;
 	}
 
 	//Debug tools lexer
+	/*
 	ft_putstr("-->typeof line=");
 	ft_putnbr(er);
 	ft_putstr("-->line=");
 	ft_putstr(line);
-	ft_putchar('\n');
+	ft_putchar('\n');*/
 
 
 	return(1);
