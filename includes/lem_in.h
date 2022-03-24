@@ -29,7 +29,7 @@ typedef struct s_danthill
 {
 	int					ant;
 	char				*name;
-	int					coor[2];
+	int					cor[2];
     struct s_danthill	*ptr[MAX_ANTHILL];
 	struct s_danthill	*next;
 	struct s_danthill	*prev;

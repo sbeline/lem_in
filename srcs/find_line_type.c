@@ -47,12 +47,16 @@ static int	is_coor(char *str)
 		else if (*str == ' ')
 		{
 			str++;
-			while (*str)
+			while (*str != '\0')
 			{
-				if (ft_isdigit(*str))
-					str++;
-				else
+				if (!ft_isdigit(*str))
+				{
+					ft_putnbr(ft_atoi(str));
+					ft_putstr("im in:");
 					return(0);
+				}
+				else
+					str++;
 			}
 			return(1);
 		}
@@ -74,7 +78,9 @@ static void	is_room(char *line,t_danthill **anthill, int *er, int *start_end)
 		if (is_coor(line + pos))
 		{
 			*er = 3;
-			stock_room(line, start_end, pos);
+			*anthill = stock_room(line, start_end, pos);
+			ft_putstr("im in");
+			ft_putendl((*anthill)->name);
 		}
 	}
 }
@@ -115,12 +121,12 @@ int	find_line_type(char *line, t_danthill **anthill)
 		i++;
 	}
 
-	/* Debug tools lexer
+	//Debug tools lexer
 	ft_putstr("-->typeof line=");
 	ft_putnbr(er);
 	ft_putstr("-->line=");
 	ft_putstr(line);
-	ft_putchar('\n');*/
+	ft_putchar('\n');
 
 
 	return(1);
