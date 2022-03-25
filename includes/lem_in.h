@@ -37,7 +37,7 @@ typedef struct s_anthill
 
 typedef struct s_danthill
 {
-	size_t				lenght;
+	size_t				ant_nb;
 	struct s_anthill	*head;
 	struct s_anthill	*tail;
 }					t_danthill;
@@ -48,9 +48,17 @@ typedef struct		s_tab
 	t_anthill		*(*f)(char *, int *er, int *start_end);
 }					t_tab;
 
+void 			init_anthill(t_danthill **anthill, int ant_nb);
+void 			save_room(t_anthill *new_node, t_danthill **anthill);
 
 int				find_line_type(char *line, t_danthill **anthill);
 
-t_anthill 		*stock_room(char *line, int *start_end, int pos);
+t_anthill 		*create_room(char *line, int *start_end, int pos);
+
+
+t_danthill 		*er_in_map(int code, t_danthill **anthill);
+
+
+int				ft_natoi(const char *str, size_t cn);
 
 #endif

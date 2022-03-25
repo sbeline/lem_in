@@ -49,7 +49,7 @@ static int	is_coor(char *str)
 		else if (*str == ' ')
 		{
 			str++;
-			while (*str != '\0')
+			while (*str != '\0' && *str != '\r')
 			{
 				if (!ft_isdigit(*str))
 					return(0);
@@ -76,7 +76,7 @@ static t_anthill	*is_room(char *line, int *er, int *start_end)
 		if (is_coor(line + pos))
 		{
 			*er = 3;
-			return(stock_room(line, start_end, pos));
+			return(create_room(line, start_end, pos));
 
 		}
 	}
@@ -119,17 +119,8 @@ int	find_line_type(char *line, t_danthill **anthill)
 	while (i < LINE_TEST)
 	{
 		new_node = g_tab[i].f(line, &er, &start_end);
-		if (new_node) {
-			printf("cor_x->%d cor_y%d for->%s\n",new_node->cor[0],
-			new_node->cor[1], new_node->name);
-			if ((*anthill))
-			{
-			}
-			else
-			{
-
-			}
-		}
+		if (new_node)
+			save_room(new_node, anthill);
 		i++;
 	}
 
@@ -139,8 +130,8 @@ int	find_line_type(char *line, t_danthill **anthill)
 	ft_putnbr(er);
 	ft_putstr("-->line=");
 	ft_putstr(line);
-	ft_putchar('\n');*/
-
+	ft_putchar('\n');
+	*/
 
 	return(1);
 }

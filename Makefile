@@ -1,8 +1,10 @@
 NAME = lem_in
 
-LEM_IN_NAME = lem_in.c \
+LEM_IN_NAME = anthill.c \
+				error_gestion.c \
 				find_line_type.c \
-				stock.c
+				lem_in.c \
+				tools.c
 
 
 INC_PATH = ./includes/
