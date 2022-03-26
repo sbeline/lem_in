@@ -122,16 +122,15 @@ int	find_line_type(char *line, t_danthill **anthill)
 		if (new_node)
 			save_room(new_node, anthill);
 		i++;
-		ft_putstr(line);
 	}
 
 	//Debug tools lexer
-
+	/*
 	ft_putstr("-->typeof line=");
 	ft_putnbr(er);
 	ft_putstr("-->line=");
 	ft_putstr(line);
-	ft_putchar('\n');
+	ft_putchar('\n');*/
 
 	return(1);
 }

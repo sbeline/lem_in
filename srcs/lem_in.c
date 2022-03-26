@@ -4,12 +4,14 @@
 void 			print_anthill(t_danthill *anthill)
 {
 	t_anthill	*ptr;
+	int			hash_i;
 
 	ptr = anthill->head;
 	while (ptr) {
 		/* code */
-		printf("cor_x->%d cor_y%d for->%s\n", ptr->cor[0],
-		ptr->cor[1], ptr->name);
+		hash_i = hash(ptr->name);
+		printf("cor_x->%d cor_y%d for->%s hash->%d\n", ptr->cor[0],
+		ptr->cor[1], ptr->name, hash_i);
 		ptr = ptr->next;
 	}
 }

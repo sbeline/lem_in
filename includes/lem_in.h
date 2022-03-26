@@ -61,5 +61,6 @@ t_danthill 		*er_in_map(int code, t_danthill **anthill);
 
 
 int				ft_natoi(const char *str, size_t cn);
+int				hash(char *item);
 
 #endif

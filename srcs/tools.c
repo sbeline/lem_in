@@ -29,7 +29,15 @@ int				ft_natoi(const char *str, size_t cn)
 int			hash(char *item)
 {
 	int		index;
+	int		hash_item;
 
-	index = ft_atoi(item) * MAX_ANTHILL;
+	printf("item=%s hash_item", item);
+	while (*item) {
+		/* code */
+		hash_item ^= *item;
+		item++;
+	}
+	index = hash_item % MAX_ANTHILL;
+	printf("item=%s hash_item ->%d index ->%d\n", item,hash_item ,index);
 	return (index);
 }
