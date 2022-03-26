@@ -44,7 +44,7 @@ int main(int ac, char **av)
 	//parser_files() #function to create le
 	anthill = parser_lexer();
 	if (anthill) {
-		//print_anthill(anthill);
+		print_anthill(anthill);
 	}
     return (0);
 }

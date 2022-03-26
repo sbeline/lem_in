@@ -25,3 +25,11 @@ int				ft_natoi(const char *str, size_t cn)
 	}
 	return (n * boolean);
 }
+
+int			hash(char *item)
+{
+	int		index;
+
+	index = ft_atoi(item) * MAX_ANTHILL;
+	return (index);
+}
