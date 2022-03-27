@@ -28,8 +28,11 @@ t_danthill		*parser_lexer()
 	anthill = NULL;
 	while ((get_next_line(0, &buf)) > 0)
 	{
-		if (!anthill && !ft_isalnum(ft_atoi(buf)))
+		if (!anthill && !ft_isdigit(ft_atoi(buf)))
+		{
+			ft_putstr("im in");
 			init_anthill(&anthill, ft_atoi(buf));
+		}
 		if (!anthill)
 			return (er_in_map(-1, &anthill));
 		if (find_line_type(buf, &anthill) < 0)

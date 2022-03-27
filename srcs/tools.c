@@ -1,5 +1,17 @@
 #include "../includes/lem_in.h"
 
+int				prw(int base, int exp)
+{
+	int res=1;
+
+	while(exp>=1)
+	{
+		res*=base;
+		exp--;
+	}
+	return(res);
+}
+
 int				ft_natoi(const char *str, size_t cn)
 {
 	int		i;
@@ -28,23 +40,13 @@ int				ft_natoi(const char *str, size_t cn)
 
 int			hash(char *item)
 {
-	int		index;
-	int		hash_item;
-
-	index = 0;
-	hash_item = 0;
-	while (*item) {
-		hash_item = hash_item ^ (int)*item;
-		ft_putnbr(*item);
-		ft_putstr(" hash_item->");
-		ft_putnbr(hash_item);
-		ft_putstr(" index->");
-		ft_putnbr(index);
-		ft_putchar('\n');
+	int		p = 93;
+	long long hash_value = 0;
+	long long p_pow = 1;
+	while (*item)
 		item++;
-	}
-
-	index = hash_item % MAX_ANTHILL;
-
+	ft_putstr(" hash_item->");
+	ft_putnbr(hash_item);
+	ft_putchar('\n');
 	return (index);
 }
