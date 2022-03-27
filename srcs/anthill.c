@@ -9,7 +9,7 @@ t_anthill 		*create_room(char *line, int *start_end, int pos)
 	new_node = (t_anthill *)ft_memalloc(sizeof(t_anthill));
 	new_node->name = ft_strndup(line, 0, pos);
 	pos_scd = ft_strchr(line+pos, ' ');
-	new_node->cor[0] = ft_natoi(line+pos, pos);
+	new_node->cor[0] = ft_natoi(line+pos,pos);
 	new_node->cor[1] = ft_atoi(line+pos+pos_scd);
 	return (new_node);
 }
@@ -34,8 +34,7 @@ void save_room(t_anthill *new_node, t_danthill **anthill)
 		{
 			if (!(*anthill)->head && !(*anthill)->tail)
 			{
-				(*anthill)->tail = new_node;
-				(*anthill)->head = new_node;
+				(*anthill)->hash_table[hash(new_node->name)] = new_node;
 			}
 			else
 			{

@@ -31,13 +31,20 @@ int			hash(char *item)
 	int		index;
 	int		hash_item;
 
-	printf("item=%s hash_item", item);
+	index = 0;
+	hash_item = 0;
 	while (*item) {
-		/* code */
-		hash_item ^= *item;
+		hash_item = hash_item ^ (int)*item;
+		ft_putnbr(*item);
+		ft_putstr(" hash_item->");
+		ft_putnbr(hash_item);
+		ft_putstr(" index->");
+		ft_putnbr(index);
+		ft_putchar('\n');
 		item++;
 	}
+
 	index = hash_item % MAX_ANTHILL;
-	printf("item=%s hash_item ->%d index ->%d\n", item,hash_item ,index);
+
 	return (index);
 }
