@@ -35,6 +35,8 @@ void save_room(t_anthill *new_node, t_danthill **anthill)
 			if (!(*anthill)->head && !(*anthill)->tail)
 			{
 				(*anthill)->hash_table[hash(new_node->name)] = new_node;
+				(*anthill)->head = new_node;
+				(*anthill)->tail = new_node;
 			}
 			else
 			{

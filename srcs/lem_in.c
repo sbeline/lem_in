@@ -4,7 +4,7 @@
 void 			print_anthill(t_danthill *anthill)
 {
 	t_anthill	*ptr;
-	int			hash_i;
+	int			hash_i = 0;
 
 	ptr = anthill->head;
 	while (ptr) {
@@ -29,10 +29,7 @@ t_danthill		*parser_lexer()
 	while ((get_next_line(0, &buf)) > 0)
 	{
 		if (!anthill && !ft_isdigit(ft_atoi(buf)))
-		{
-			ft_putstr("im in");
 			init_anthill(&anthill, ft_atoi(buf));
-		}
 		if (!anthill)
 			return (er_in_map(-1, &anthill));
 		if (find_line_type(buf, &anthill) < 0)
