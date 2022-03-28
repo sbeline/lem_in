@@ -19,6 +19,7 @@ void init_anthill(t_danthill **anthill, int ant_nb)
 	(*anthill)->head = NULL;
 	(*anthill)->tail = NULL;
 	(*anthill)->ant_nb = ant_nb;
+	ft_memset((*anthill)->hash_table, 0, MAX_ANTHILL);
 }
 
 void free_anthill(t_danthill **anthill)
@@ -40,6 +41,7 @@ void save_room(t_anthill *new_node, t_danthill **anthill)
 			}
 			else
 			{
+				(*anthill)->hash_table[hash(new_node->name)] = new_node;
 				(*anthill)->tail->next = new_node;
 				new_node->prev = (*anthill)->tail;
 				(*anthill)->tail = new_node;

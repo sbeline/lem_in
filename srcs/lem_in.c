@@ -4,16 +4,25 @@
 void 			print_anthill(t_danthill *anthill)
 {
 	t_anthill	*ptr;
-	int			hash_i = 0;
-
+	int len = 0;
 	ptr = anthill->head;
-	while (ptr) {
-		/* code */
-		hash_i = hash(ptr->name);
-		printf("cor_x->%d cor_y%d for->%s hash->%d\n", ptr->cor[0],
-		ptr->cor[1], ptr->name, hash_i);
-		ptr = ptr->next;
+	int	count_ar= 0;
+	int count_et = 0;
+	while (len < MAX_ANTHILL)
+	{
+		if (anthill->hash_table[len]) {
+			printf("index->%d name->%s\n", len, anthill->hash_table[len]->name);
+			count_ar++;
+		}
+		len++;
 	}
+	while (ptr) {
+		printf("cor_x->%d cor_y%d for->%s\n", ptr->cor[0],
+		ptr->cor[1], ptr->name);
+		ptr = ptr->next;
+		count_et++;
+	}
+	printf("ar entry:%d  et entry:%d\n", count_ar, count_et);
 }
 
 

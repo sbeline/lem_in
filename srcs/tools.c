@@ -44,16 +44,13 @@ int			hash(char *item)
 	long long hash_value = 0;
 	long long p_pow = 1;
 
-	ft_putstr(item);
 	while (*item)
 	{
-		hash_value = (hash_value + (*item - 'a' + 1) * p_pow) % INT_MAX;
+		hash_value = (hash_value + (*item) * p_pow) % INT_MAX;
 		p_pow = (p_pow * p) % INT_MAX;
 		item++;
+
 	}
 	hash_value %= MAX_ANTHILL;
-	ft_putstr(" hash_value->");
-	ft_putnbr(hash_value);
-	ft_putchar('\n');
 	return (hash_value);
 }
