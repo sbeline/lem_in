@@ -121,6 +121,8 @@ int	find_line_type(char *line, t_danthill **anthill)
 		new_node = g_tab[i].f(line, &er, &start_end);
 		if (new_node)
 			save_room(new_node, anthill);
+		else if (er == 4)
+			pipe_creation(line, anthill);
 		i++;
 	}
 

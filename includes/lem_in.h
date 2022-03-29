@@ -38,7 +38,7 @@ typedef struct s_anthill
 typedef struct s_danthill
 {
 	size_t				ant_nb;
-	struct s_anthill	*hash_table[100000];
+	struct s_anthill	*hash_table[MAX_ANTHILL];
 	struct s_anthill	*head;
 	struct s_anthill	*tail;
 }					t_danthill;
@@ -51,6 +51,7 @@ typedef struct		s_tab
 
 void 			init_anthill(t_danthill **anthill, int ant_nb);
 void 			save_room(t_anthill *new_node, t_danthill **anthill);
+void			pipe_creation(char *line);
 
 int				find_line_type(char *line, t_danthill **anthill);
 
