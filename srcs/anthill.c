@@ -28,12 +28,21 @@ void free_anthill(t_danthill **anthill)
 
 void save_room(t_anthill *new_node, t_danthill **anthill)
 {
+	int tmp;
+
+	tmp = 0;
 	if (new_node) {
 		if ((*anthill))
 		{
 			if (!(*anthill)->head && !(*anthill)->tail)
 			{
-				(*anthill)->hash_table[hash(new_node->name)] = new_node;
+				tmp = hash(new_node->name);
+				if ((*anthill)->hash_table[tmp])
+				{
+					while ((*anthill)->hash_table[tmp])
+						tmp++;
+				}
+				(*anthill)->hash_table[tmp] = new_node;
 				(*anthill)->head = new_node;
 				(*anthill)->tail = new_node;
 			}
@@ -60,7 +69,6 @@ void	pipe_creation(char *line, t_danthill **anthill)
 	splitresult = NULL;
 
 	splitresult = ft_strsplit(line, '-');
-	printf("%s<-pipe->%s\n", splitresult[0], splitresult[1]);
 	(*anthill)->hash_table[hash(splitresult[0])];
 	hash(splitresult[0]);
 	hash(splitresult[1]);

@@ -51,7 +51,7 @@ typedef struct		s_tab
 
 void 			init_anthill(t_danthill **anthill, int ant_nb);
 void 			save_room(t_anthill *new_node, t_danthill **anthill);
-void			pipe_creation(char *line);
+void			pipe_creation(char *line, t_danthill **anthill);
 
 int				find_line_type(char *line, t_danthill **anthill);
 

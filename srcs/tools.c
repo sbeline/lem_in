@@ -40,14 +40,15 @@ int				ft_natoi(const char *str, size_t cn)
 
 int			hash(char *item)
 {
-	int		p = 93;
-	long long hash_value = 0;
-	long long p_pow = 1;
+	const int p = 31;
+    const int m = 1e9 + 9;
+    long long hash_value = 0;
+    long long p_pow = 1;
 
 	while (*item)
 	{
-		hash_value = (hash_value + (*item) * p_pow) % INT_MAX;
-		p_pow = (p_pow * p) % INT_MAX;
+		hash_value = (hash_value + (*item) * p_pow) % m;
+		p_pow = (p_pow * p) % m;
 		item++;
 
 	}

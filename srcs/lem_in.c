@@ -22,7 +22,7 @@ void 			print_anthill(t_danthill *anthill)
 		ptr = ptr->next;
 		count_et++;
 	}
-	printf("ar entry:%d  et entry:%d\n", count_ar, count_et);
+	printf("hash_table entry:%d  et entry_list:%d\n", count_ar, count_et);
 }
 
 
