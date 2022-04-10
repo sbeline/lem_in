@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-static t_anthill *is_command(char *line, int *er, int *start_end)
+static t_room *is_command(char *line, int *er, int *start_end)
 {
 	if (!ft_strncmp(line, "##", 2))
 	{
@@ -13,7 +13,7 @@ static t_anthill *is_command(char *line, int *er, int *start_end)
 	return NULL;
 }
 
-static t_anthill *is_com(char *line, int *er, int *start_end)
+static t_room *is_com(char *line, int *er, int *start_end)
 {
 	if (*line == '#' && !*er)
 	{
@@ -64,7 +64,7 @@ static int	is_coor(char *str)
 	return(0);
 }
 
-static t_anthill	*is_room(char *line, int *er, int *start_end)
+static t_room	*is_room(char *line, int *er, int *start_end)
 {
 	int pos;
 
@@ -84,7 +84,7 @@ static t_anthill	*is_room(char *line, int *er, int *start_end)
 
 }
 
-static t_anthill *is_pipe(char *line, int *er, int *start_end)
+static t_room *is_pipe(char *line, int *er, int *start_end)
 {
 	int pos;
 
@@ -110,7 +110,7 @@ int	find_line_type(char *line, t_danthill **anthill)
 	int i;
 	int start_end;
 	int er;
-	t_anthill *new_node;
+	t_room *new_node;
 
 	new_node = NULL;
 	i = 0;
@@ -120,7 +120,7 @@ int	find_line_type(char *line, t_danthill **anthill)
 	{
 		new_node = g_tab[i].f(line, &er, &start_end);
 		if (new_node)
-			save_room(new_node, anthill);
+			save_room(new_node, anthill, &start_end);
 		else if (er == 4)
 			pipe_creation(line, anthill);
 		i++;

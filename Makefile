@@ -4,6 +4,7 @@ LEM_IN_NAME = anthill.c \
 				error_gestion.c \
 				find_line_type.c \
 				lem_in.c \
+				edk_alg.c \
 				tools.c
 
 

@@ -1,17 +1,22 @@
 #include "../includes/lem_in.h"
 
-t_anthill 		*create_room(char *line, int *start_end, int pos)
+void free_room(t_danthill **anthill)
 {
-	t_anthill *new_node;
+}
+
+
+t_room 		*create_room(char *line, int *start_end, int pos)
+{
+	t_room *new_room;
 	int pos_scd;
 
 	pos_scd = 0;
-	new_node = (t_anthill *)ft_memalloc(sizeof(t_anthill));
-	new_node->name = ft_strndup(line, 0, pos);
+	new_room = (t_room *)ft_memalloc(sizeof(t_room));
+	new_room->name = ft_strndup(line, 0, pos - 1);
 	pos_scd = ft_strchr(line+pos, ' ');
-	new_node->cor[0] = ft_natoi(line+pos,pos);
-	new_node->cor[1] = ft_atoi(line+pos+pos_scd);
-	return (new_node);
+	new_room->cor[0] = ft_natoi(line+pos,pos);
+	new_room->cor[1] = ft_atoi(line+pos+pos_scd);
+	return (new_room);
 }
 void init_anthill(t_danthill **anthill, int ant_nb)
 {
@@ -19,49 +24,88 @@ void init_anthill(t_danthill **anthill, int ant_nb)
 	(*anthill)->head = NULL;
 	(*anthill)->tail = NULL;
 	(*anthill)->ant_nb = ant_nb;
-	ft_memset((*anthill)->hash_table, 0, MAX_ANTHILL);
+	ft_memset((*anthill)->hash_table, 0, MAX_ROOM);
 }
 
-void free_anthill(t_danthill **anthill)
+t_piperoom	*init_pipe(t_room *new_room)
 {
+	t_piperoom	*pipe_room;
+
+	pipe_room = (t_piperoom *)ft_memalloc(sizeof(t_piperoom));
+	pipe_room->room = new_room;
+	pipe_room->next = NULL;
+	return (pipe_room);
 }
 
-void save_room(t_anthill *new_node, t_danthill **anthill)
+void save_room(t_room *new_room, t_danthill **anthill, int *save_room)
 {
-	if (new_node) {
+	t_piperoom *pipe_room;
+
+	pipe_room = NULL;
+	if (new_room) {
+		pipe_room = init_pipe(new_room);
 		if ((*anthill))
 		{
 			if (!(*anthill)->head && !(*anthill)->tail)
 			{
-				(*anthill)->hash_table[hash(new_node->name)] = new_node;
-				(*anthill)->head = new_node;
-				(*anthill)->tail = new_node;
+				(*anthill)->hash_table[hash(new_room->name)] = pipe_room;
+				(*anthill)->head = new_room;
+				(*anthill)->tail = new_room;
+				if (*save_room == START) {
+					(*anthill)->start = new_room;
+					save_room = 0;
+				}
+				if (*save_room == END) {
+					(*anthill)->start = new_room;
+					save_room = 0;
+				}
 			}
 			else
 			{
-				(*anthill)->hash_table[hash(new_node->name)] = new_node;
-				(*anthill)->tail->next = new_node;
-				new_node->prev = (*anthill)->tail;
-				(*anthill)->tail = new_node;
-				new_node->next = NULL;
+				(*anthill)->hash_table[hash(new_room->name)] = pipe_room;
+				(*anthill)->tail->next = new_room;
+				new_room->prev = (*anthill)->tail;
+				(*anthill)->tail = new_room;
+				new_room->next = NULL;
+				if (*save_room == START) {
+					(*anthill)->start = new_room;
+					save_room = 0;
+				}
+				if (*save_room == END) {
+					(*anthill)->start = new_room;
+					save_room = 0;
+				}
 			}
+
 		}
 	}
 }
 
 void	pipe_creation(char *line, t_danthill **anthill)
 {
-	t_anthill	*frst_hill;
-	t_anthill	*scd_hill;
+	t_piperoom	*tmp;
+	t_piperoom	*new_pipe;
 	char		**splitresult;
 
-	frst_hill = NULL;
-	scd_hill = NULL;
-	splitresult = NULL;
-
+	tmp = NULL;
+	new_pipe = NULL;
 	splitresult = ft_strsplit(line, '-');
-	printf("%s<-pipe->%s\n", splitresult[0], splitresult[1]);
-	(*anthill)->hash_table[hash(splitresult[0])];
-	hash(splitresult[0]);
-	hash(splitresult[1]);
+	if ((*anthill)->hash_table[hash(splitresult[0])] &&
+		(*anthill)->hash_table[hash(splitresult[1])])
+		{
+			if ((*anthill)->hash_table[hash(splitresult[0])])
+			{
+				new_pipe = init_pipe((*anthill)->hash_table[hash(splitresult[1])]->room);
+				tmp = (*anthill)->hash_table[hash(splitresult[0])];
+				if (!tmp->next)
+					tmp->next = new_pipe;
+				else
+				{
+					while (tmp->next)
+						tmp = tmp->next;
+					tmp->next = new_pipe;
+				}
+
+			}
+	}
 }
