@@ -36,7 +36,9 @@ void 			print_room(t_danthill *anthill)
 		ptr = ptr->next;
 		count_et++;
 	}
-	printf("START->%s END->%s \n", anthill->start->name, anthill->end->name);
+	if (anthill->start && anthill->end) {
+		printf("START->%s END->%s \n", anthill->start->name, anthill->end->name);
+	}
 	printf("ar entry:%d  et entry:%d\n", count_ar, count_et);
 }
 

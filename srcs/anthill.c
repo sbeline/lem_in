@@ -24,6 +24,7 @@ void init_anthill(t_danthill **anthill, int ant_nb)
 	(*anthill)->head = NULL;
 	(*anthill)->tail = NULL;
 	(*anthill)->ant_nb = ant_nb;
+	(*anthill)->lock_start_end = 0;
 	ft_memset((*anthill)->hash_table, 0, MAX_ROOM);
 }
 
@@ -37,7 +38,7 @@ t_piperoom	*init_pipe(t_room *new_room)
 	return (pipe_room);
 }
 
-void save_room(t_room *new_room, t_danthill **anthill, int *save_room)
+void save_room(t_room *new_room, t_danthill **anthill)
 {
 	t_piperoom *pipe_room;
 
@@ -51,13 +52,13 @@ void save_room(t_room *new_room, t_danthill **anthill, int *save_room)
 				(*anthill)->hash_table[hash(new_room->name)] = pipe_room;
 				(*anthill)->head = new_room;
 				(*anthill)->tail = new_room;
-				if (*save_room == START) {
+				if ((*anthill)->lock_start_end == START) {
 					(*anthill)->start = new_room;
-					save_room = 0;
+					(*anthill)->lock_start_end= 0;
 				}
-				if (*save_room == END) {
+				if ((*anthill)->lock_start_end == END) {
 					(*anthill)->start = new_room;
-					save_room = 0;
+					(*anthill)->lock_start_end= 0;
 				}
 			}
 			else
@@ -67,13 +68,13 @@ void save_room(t_room *new_room, t_danthill **anthill, int *save_room)
 				new_room->prev = (*anthill)->tail;
 				(*anthill)->tail = new_room;
 				new_room->next = NULL;
-				if (*save_room == START) {
+				if ((*anthill)->lock_start_end == START) {
 					(*anthill)->start = new_room;
-					save_room = 0;
+					(*anthill)->lock_start_end= 0;
 				}
-				if (*save_room == END) {
+				if ((*anthill)->lock_start_end == END) {
 					(*anthill)->start = new_room;
-					save_room = 0;
+					(*anthill)->lock_start_end= 0;
 				}
 			}
 

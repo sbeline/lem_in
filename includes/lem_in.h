@@ -42,6 +42,7 @@ typedef struct	s_piperoom
 
 typedef struct s_danthill
 {
+	int					lock_start_end;
 	size_t				ant_nb;
 	struct s_piperoom	*hash_table[MAX_ROOM];
 	struct s_room		*start;
@@ -57,7 +58,7 @@ typedef struct		s_tab
 }					t_tab;
 
 void 			init_anthill(t_danthill **anthill, int ant_nb);
-void 			save_room(t_room *new_node, t_danthill **anthill, int *save_room);
+void 			save_room(t_room *new_node, t_danthill **anthill);
 void			pipe_creation(char *line, t_danthill **anthill);
 
 int				find_line_type(char *line, t_danthill **anthill);

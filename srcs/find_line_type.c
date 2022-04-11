@@ -108,19 +108,17 @@ static const t_tab		g_tab[LINE_TEST] =
 int	find_line_type(char *line, t_danthill **anthill)
 {
 	int i;
-	int start_end;
 	int er;
 	t_room *new_node;
 
 	new_node = NULL;
 	i = 0;
 	er = 0;
-	start_end = -1;
 	while (i < LINE_TEST)
 	{
-		new_node = g_tab[i].f(line, &er, &start_end);
+		new_node = g_tab[i].f(line, &er, &(*anthill)->lock_start_end);
 		if (new_node)
-			save_room(new_node, anthill, &start_end);
+			save_room(new_node, anthill);
 		else if (er == 4)
 			pipe_creation(line, anthill);
 		i++;
