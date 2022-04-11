@@ -52,6 +52,6 @@ int			hash(char *item)
 		item++;
 
 	}
-	hash_value %= MAX_ANTHILL;
+	hash_value %= MAX_ROOM;
 	return (hash_value);
 }

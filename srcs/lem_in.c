@@ -1,28 +1,49 @@
 #include "../includes/lem_in.h"
 
-
-void 			print_anthill(t_danthill *anthill)
+void 			print_room(t_danthill *anthill)
 {
-	t_anthill	*ptr;
+	t_room	*ptr;
 	int len = 0;
+	t_piperoom *tmp;
+
 	ptr = anthill->head;
 	int	count_ar= 0;
 	int count_et = 0;
-	while (len < MAX_ANTHILL)
+	ptr = NULL;
+	tmp = NULL;
+
+	while (len < MAX_ROOM)
 	{
 		if (anthill->hash_table[len]) {
-			printf("index->%d name->%s\n", len, anthill->hash_table[len]->name);
+				printf("index->%d name->%s\n", len, anthill->hash_table[len]->room->name);
+			// list of pipe .
+			tmp = anthill->hash_table[len];
+			if (tmp)
+				printf("list of pipe:\n");
+			while (tmp) {
+				//code
+				printf("->%s\n", tmp->room->name);
+				tmp = tmp->next;
+			}
 			count_ar++;
 		}
 		len++;
 	}
+	ptr = anthill->head;
 	while (ptr) {
 		printf("cor_x->%d cor_y%d for->%s\n", ptr->cor[0],
 		ptr->cor[1], ptr->name);
 		ptr = ptr->next;
 		count_et++;
 	}
+<<<<<<< HEAD
 	printf("hash_table entry:%d  et entry_list:%d\n", count_ar, count_et);
+=======
+	if (anthill->start && anthill->end) {
+		printf("START->%s END->%s \n", anthill->start->name, anthill->end->name);
+	}
+	printf("ar entry:%d  et entry:%d\n", count_ar, count_et);
+>>>>>>> 41e60b279425ba816d8d1f01574b761b3e5269f9
 }
 
 
@@ -55,7 +76,13 @@ int main(int ac, char **av)
 	//parser_files() #function to create le
 	anthill = parser_lexer();
 	if (anthill) {
-		print_anthill(anthill);
+		/* function for print*/
+		print_room(anthill);
+
+		// part of program to resolv problem
+
+		edk_algo(anthill);
+
 	}
     return (0);
 }
